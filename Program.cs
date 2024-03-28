@@ -14,6 +14,24 @@ public class Program
             user.AddVideo(video);
         }
 
+        // Menguji Postcondition
         user.PrintAllVideoPlayCount();
+
+        //Menguji prekondisi
+        SayaTubeVideo newvideo = new SayaTubeVideo(null);
+        newvideo.IncreasePlayCount(25000001);
+        user.setUserName(null);
+        user.AddVideo(null);
+        SayaTubeVideo newvideo2 = new SayaTubeVideo("dummy video");
+        newvideo2.IncreasePlayCount(int.MaxValue);
+        user.AddVideo(newvideo2);
+
+        //Menguji exception
+        SayaTubeVideo newvideo3 = new SayaTubeVideo("Overflow video");
+        newvideo3.IncreasePlayCount(-500);
+        for (int i = 0; i < 10; i++)
+        {
+            newvideo3.IncreasePlayCount(9900000);
+        }
     }
 }

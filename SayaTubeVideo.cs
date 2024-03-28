@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.Contracts;
 
 public class SayaTubeVideo
 {
@@ -16,7 +17,7 @@ public class SayaTubeVideo
 
     public void IncreasePlayCount(int playTime)
     {
-        Debug.Assert(playTime <= 10000000, "setiap penambahan play count memiliki maksimal 10.000.000");
+        Contract.Requires(playTime <= 25000000 && playCount >= 0, "setiap penambahan play count memiliki maksimal 25.000.000 dan berupa bilangan positif");
         try
         {
             int hasil = checked(this.playCount + playTime);
@@ -38,7 +39,7 @@ public class SayaTubeVideo
 
     public void setTitle(String judul_video)
     {
-        Debug.Assert(judul_video.Length <= 100 && (judul_video != string.Empty && judul_video != null), "Judul tidak boleh kosong atau melebihi 100 karakter");
+        Contract.Requires(judul_video.Length <= 200 && (judul_video != string.Empty && judul_video != null), "Judul tidak boleh kosong atau melebihi 100 karakter");
         this.title = judul_video;
     }
 

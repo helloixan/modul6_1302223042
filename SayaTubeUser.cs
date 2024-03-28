@@ -1,4 +1,7 @@
-﻿public class SayaTubeUser
+﻿using System.Diagnostics;
+using System.Diagnostics.Contracts;
+
+public class SayaTubeUser
 {
     private int id;
     private string username;
@@ -13,6 +16,7 @@
 
     public void setUserName(string username)
     {
+        Contract.Requires(username.Length <= 100 && (username != string.Empty && username != null), "username tidak boleh kosong dan maksimal karakternya 100");
         this.username = username;
     }
 
@@ -40,6 +44,8 @@
 
     public void AddVideo(SayaTubeVideo video)
     {
+        Contract.Requires(video != null, "video yang ditambahkan tidak boleh null");
+        Contract.Requires(video.getPlayCount() < int.MaxValue);
         this.uploadedVideos.Add(video);
     }
 
@@ -50,5 +56,7 @@
         {
             Console.WriteLine($"Video {i+1} judul: {this.uploadedVideos[i].getTitle()}");
         }
+
+        Contract.Ensures(uploadedVideos.Count <= 8, "Jumlah video yang di tampilkan melebihi maksimal 8");
     }
 }
